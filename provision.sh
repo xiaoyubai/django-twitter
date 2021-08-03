@@ -48,7 +48,29 @@ sudo mysql -u root << EOF
 EOF
 # fi
 
-
+# superuser名字
+USER="admin"
+# superuser密码
+PASS="admin"
+# superuser邮箱
+MAIL="admin@twitter.com"
+script="
+断开虚拟机连接，重新执⾏脚本：
+5. 运⾏项⽬
+在虚拟机上运⾏项⽬
+我们重新连接虚拟机，进⼊ /vagrant ⽬录，并执⾏如下命令，运⾏我们的项⽬：
+如果运⾏成功，我们可以看到如下画⾯
+from django.contrib.auth.models import User;
+username = '$USER';
+password = '$PASS';
+email = '$MAIL';
+if not User.objects.filter(username=username).exists():
+User.objects.create_superuser(username, email, password);
+print('Superuser created.');
+else:
+print('Superuser creation skipped.');
+"
+printf "$script" | python manage.py shell
 # 如果想直接进入/vagrant路径下
 # 请输入vagrant ssh命令进入
 # 手动输入
